@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Documentation: Recycled Magnetic Fishing Game</title>
+    <style>
+        :root {
+            --primary: #2a9d8f;
+            --secondary: #e9c46a;
+            --accent: #f4a261;
+            --dark: #264653;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+        
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: var(--dark);
+            color: white;
+            padding: 2rem 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .sidebar-header img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid var(--primary);
+        }
+        
+        .nav-menu {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .nav-link i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+        }
+        
+        .header {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-title {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: "/";
+            padding: 0 0.5rem;
+        }
+        
+        /* Project Sections */
+        .project-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+        }
+        
+        /* Materials List */
+        .materials-list {
+            list-style: none;
+        }
+        
+        .material-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .material-item:last-child {
+            border-bottom: none;
+        }
+        
+        .material-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: var(--primary);
+        }
+        
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .team-member {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid var(--primary);
+        }
+        
+        .member-role {
+            color: var(--primary);
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        
+        /* Safety Features */
+        .safety-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .safety-item {
+            background: #e8f4fc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .safety-item h4 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .safety-item h4 i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 1rem;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .team-grid, .safety-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Project Logo">
+            <h2>Magnetic Fishing Game</h2>
+            <p>Educational Recycled Project</p>
+        </div>
+        
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#overview" class="nav-link active">
+                    <i class="fas fa-home"></i> Overview
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#materials" class="nav-link">
+                    <i class="fas fa-clipboard-list"></i> Materials
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#construction" class="nav-link">
+                    <i class="fas fa-hammer"></i> Construction
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#education" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i> Educational Value
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#safety" class="nav-link">
+                    <i class="fas fa-shield-alt"></i> Safety
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#team" class="nav-link">
+                    <i class="fas fa-users"></i> Our Team
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <div>
+                <h1 class="page-title">Recycled Magnetic Fishing Game</h1>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">Eco-Friendly Toys</li>
+                    <li class="breadcrumb-item">Educational Games</li>
+                    <li class="breadcrumb-item active">Magnetic Fishing</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Project Overview -->
+        <section id="overview" class="project-section">
+            <h2 class="section-title">
+                <i class="fas fa-info-circle"></i> Project Overview
+            </h2>
+            
+            <p>The Magnetic Fishing Game is an innovative educational toy crafted entirely from recycled materials. Designed for children aged 3-7 years, this interactive game combines principles of sustainability with STEM learning through engaging magnetic fishing gameplay.</p>
+            
+            <h3>Core Objectives:</h3>
+            <ul>
+                <li><strong>Environmental Education:</strong> Demonstrate creative reuse of common household waste materials</li>
+                <li><strong>Motor Skill Development:</strong> Enhance hand-eye coordination and fine motor control</li>
+                <li><strong>Cognitive Growth:</strong> Teach color/number recognition and basic magnetic principles</li>
+                <li><strong>Affordable Design:</strong> Create durable play equipment with less than $10 in materials</li>
+            </ul>
+            
+            <h3>Game Mechanics:</h3>
+            <p>The system consists of:</p>
+            <ul>
+                <li>A 40×60cm cardboard "fishing pool" with painted aquatic design</li>
+                <li>5-10 magnetic fish crafted from recycled medicine bottles</li>
+                <li>2-4 fishing rods with magnetic tips</li>
+                <li>Scoring system using numbered fish (optional)</li>
+            </ul>
+            <p>When the magnetic tip of the rod comes within 2-3cm of a fish's mouth magnet, they attract, allowing children to "catch" the fish.</p>
+        </section>
+        
+        <!-- Materials Section -->
+        <section id="materials" class="project-section">
+            <h2 class="section-title">
+                <i class="fas fa-clipboard-list"></i> Materials Specification
+            </h2>
+            
+            <h3>Primary Components:</h3>
+            <ul class="materials-list">
+                <li class="material-item">
+                    <div class="material-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div>
+                        <h4>Corrugated Cardboard</h4>
+                        <p><strong>Source:</strong> Shipping boxes or packaging material</p>
+                        <p><strong>Preparation:</strong> Flattened, cleaned, and laminated with clear tape for water resistance</p>
+                        <p><strong>Dimensions:</strong> 40×60cm base with 5cm side walls</p>
+                    </div>
+                </li>
+                <li class="material-item">
+                    <div class="material-icon">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <div>
+                        <h4>Medicine Bottles (Ampoules)</h4>
+                        <p><strong>Type:</strong> Small glass or plastic liquid medicine containers (50ml capacity)</p>
+                        <p><strong>Quantity:</strong> 6-10 units, preferably with cylindrical bodies</p>
+                        <p><strong>Preparation:</strong> Thoroughly cleaned and labels removed</p>
+                    </div>
+                </li>
+                <li class="material-item">
+                    <div class="material-icon">
+                        <i class="fas fa-magnet"></i>
+                    </div>
+                    <div>
+                        <h4>Neodymium Magnets</h4>
+                        <p><strong>For Fish:</strong> 5mm diameter disc magnets (10 pieces)</p>
+                        <p><strong>For Rods:</strong> 15mm diameter ceramic magnets (2 pieces)</p>
+                        <p><strong>Safety:</strong> Fully encapsulated in food-grade silicone</p>
+                    </div>
+                </li>
+            </ul>
+            
+            <h3>Construction Supplies:</h3>
+            <ul class="materials-list">
+                <li class="material-item">
+                    <div class="material-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div>
+                        <h4>Art Materials</h4>
+                        <p>Non-toxic acrylic paints (blue, green, red, yellow, white)</p>
+                        <p>Water-based polyurethane varnish</p>
+                        <p>Permanent markers for detailing</p>
+                    </div>
+                </li>
+                <li class="material-item">
+                    <div class="material-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div>
+                        <h4>Tools</h4>
+                        <p>Utility knife with safety lock</p>
+                        <p>Blunt-tip scissors</p>
+                        <p>Low-temperature hot glue gun</p>
+                        <p>Fine-grit sandpaper (220 grit)</p>
+                        <p>Paintbrushes (various sizes)</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        
+        <!-- Construction Process -->
+        <section id="construction" class="project-section">
+            <h2 class="section-title">
+                <i class="fas fa-hammer"></i> Step-by-Step Construction Guide
+            </h2>
+            
+            <h3>Phase 1: Fishing Pool Assembly (2 hours)</h3>
+            <ol>
+                <li><strong>Base Construction:</strong>
+                    <ul>
+                        <li>Measure and mark 40×60cm rectangle on cardboard</li>
+                        <li>Cut using utility knife with metal ruler guide</li>
+                        <li>Sand all edges to smooth roughness</li>
+                    </ul>
+                </li>
+                <li><strong>Side Walls:</strong>
+                    <ul>
+                        <li>Cut 5cm wide strips for perimeter walls</li>
+                        <li>Score fold lines every 10cm for smooth corners</li>
+                        <li>Attach with hot glue, reinforcing corners</li>
+                    </ul>
+                </li>
+                <li><strong>Finishing:</strong>
+                    <ul>
+                        <li>Apply blue gradient paint (dark to light)</li>
+                        <li>Add wave patterns with lighter blue</li>
+                        <li>Seal with 2 coats water-based varnish</li>
+                    </ul>
+                </li>
+            </ol>
+            
+            <h3>Phase 2: Magnetic Fish Creation (3 hours)</h3>
+            <ol>
+                <li><strong>Fish Design:</strong>
+                    <ul>
+                        <li>Cut medicine bottles into fish shapes (avg. 8cm length)</li>
+                        <li>Create 5 distinct species (angelfish, clownfish, etc.)</li>
+                        <li>Sand all edges to safety standards</li>
+                    </ul>
+                </li>
+                <li><strong>Magnet Installation:</strong>
+                    <ul>
+                        <li>Mark magnet position at fish "mouth"</li>
+                        <li>Secure neodymium magnet with epoxy resin</li>
+                        <li>Allow 1 hour curing time before painting</li>
+                    </ul>
+                </li>
+                <li><strong>Painting:</strong>
+                    <ul>
+                        <li>Prime with white acrylic base</li>
+                        <li>Paint species-appropriate color patterns</li>
+                        <li>Number fish 1-5 for scoring system</li>
+                        <li>Apply protective varnish coat</li>
+                    </ul>
+                </li>
+            </ol>
+            
+            <h3>Phase 3: Fishing Rod Production (1 hour)</h3>
+            <ol>
+                <li><strong>Rod Assembly:</strong>
+                    <ul>
+                        <li>Cut 30cm wooden dowels for handles</li>
+                        <li>Attach 50cm nylon string with secure knot</li>
+                    </ul>
+                </li>
+                <li><strong>Magnetic Tip:</strong>
+                    <ul>
+                        <li>Embed ceramic magnet in silicone putty</li>
+                        <li>Attach to string end with double knot</li>
+                        <li>Seal connection with hot glue</li>
+                    </ul>
+                </li>
+                <li><strong>Customization:</strong>
+                    <ul>
+                        <li>Color-code handles for multiple players</li>
+                        <li>Add grip texture with rubber bands</li>
+                        <li>Test magnetic strength with all fish</li>
+                    </ul>
+                </li>
+            </ol>
+            
+            <h3>Advanced Customization Options:</h3>
+            <ul>
+                <li><strong>Aquatic Decor:</strong> Add EVA coral reefs or seaweed</li>
+                <li><strong>Special Fish:</strong> Create "golden fish" worth extra points</li>
+                <li><strong>Obstacles:</strong> Floating bottle cap "rocks"</li>
+                <li><strong>Storage:</strong> Fabric pouch for fish organization</li>
+            </ul>
+        </section>
+        
+        <!-- Educational Value -->
+        <section id="education" class="project-section">
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i> Educational Benefits
+            </h2>
+            
+            <h3>Developmental Skills Enhancement</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0;">
+                <div style="background: #e8f4fc; padding: 1rem; border-radius: 8px;">
+                    <h4><i class="fas fa-hand-paper" style="color: var(--primary); margin-right: 10px;"></i> Physical Development</h4>
+                    <ul>
+                        <li><strong>Fine Motor Control:</strong> Precise rod manipulation</li>
+                        <li><strong>Hand-Eye Coordination:</strong> Visual tracking of fish</li>
+                        <li><strong>Bilateral Coordination:</strong> Using both hands cooperatively</li>
+                    </ul>
+                </div>
+                <div style="background: #e8f4fc; padding: 1rem; border-radius: 8px;">
+                    <h4><i class="fas fa-brain" style="color: var(--primary); margin-right: 10px;"></i> Cognitive Development</h4>
+                    <ul>
+                        <li><strong>STEM Learning:</strong> Basic magnetic principles</li>
+                        <li><strong>Numeracy:</strong> Counting and scoring system</li>
+                        <li><strong>Problem Solving:</strong> Strategic fish targeting</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>Environmental Learning Components</h3>
+            <ul>
+                <li><strong>Upcycling Demonstration:</strong> Transforming waste into toys</li>
+                <li><strong>Marine Ecosystem:</strong> Fish species identification</li>
+                <li><strong>Conservation:</strong> Importance of clean waterways</li>
+            </ul>
+            
+            <h3>Suggested Educational Activities</h3>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <tr>
+                    <th style="background: var(--primary); color: white; padding: 0.75rem; text-align: left;">Activity</th>
+                    <th style="background: var(--primary); color: white; padding: 0.75rem; text-align: left;">Learning Objective</th>
+                    <th style="background: var(--primary); color: white; padding: 0.75rem; text-align: left;">Age Adaptation</th>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 0.75rem;">Color Fishing</td>
+                    <td style="padding: 0.75rem;">Color recognition and matching</td>
+                    <td style="padding: 0.75rem;">3-5 years</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 0.75rem;">Math Catch</td>
+                    <td style="padding: 0.75rem;">Addition using fish numbers</td>
+                    <td style="padding: 0.75rem;">5-7 years</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.75rem;">Eco Storytelling</td>
+                    <td style="padding: 0.75rem;">Environmental awareness</td>
+                    <td style="padding: 0.75rem;">All ages</td>
+                </tr>
+            </table>
+        </section>
+        
+        <!-- Safety Section -->
+        <section id="safety" class="project-section">
+            <h2 class="section-title">
+                <i class="fas fa-shield-alt"></i> Safety Engineering
+            </h2>
+            
+            <p>This project exceeds international toy safety standards (EN71, ASTM F963) through these design features:</p>
+            
+            <div class="safety-features">
+                <div class="safety-item">
+                    <h4><i class="fas fa-cut"></i> Edge Safety</h4>
+                    <p>All cardboard and plastic edges rounded to >1mm radius. Double-checked with edge radius gauge.</p>
+                </div>
+                <div class="safety-item">
+                    <h4><i class="fas fa-magnet"></i> Magnet Security</h4>
+                    <p>Neodymium magnets encased in 2mm thick silicone sleeves, requiring >5lbs force to remove.</p>
+                </div>
+                <div class="safety-item">
+                    <h4><i class="fas fa-child"></i> Choking Hazard Prevention</h4>
+                    <p>All components exceed 5cm minimum dimension requirement for under-3 safety.</p>
+                </div>
+                <div class="safety-item">
+                    <h4><i class="fas fa-flask"></i> Non-Toxic Materials</h4>
+                    <p>AP-certified paints and water-based finishes meeting CPSIA lead content limits.</p>
+                </div>
+            </div>
+            
+            <h3>Usage Guidelines</h3>
+            <ul>
+                <li><strong>Age Recommendation:</strong> 3+ years with supervision, 5+ independent play</li>
+                <li><strong>Inspection:</strong> Weekly magnet security checks</li>
+                <li><strong>Cleaning:</strong> Damp cloth only - no immersion</li>
+                <li><strong>Storage:</strong> Dry environment away from electronics</li>
+            </ul>
+        </section>
+        
+        <!-- Team Section -->
+        <section id="team" class="project-section">
+            <h2 class="section-title">
+                <i class="fas fa-users"></i> Development Team
+            </h2>
+            
+            <p>This project was developed by our dedicated student team over a 4-week period:</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="img/daniel.jpeg" alt="Team Member">
+                    <h3>Daniel</h3>
+                    <p class="member-role">Structural Designer</p>
+                    <p>Designed fish shapes and pool structure. Specialized in cardboard engineering.</p>
+                </div>
+                <div class="team-member">
+                    <img src="img/luis.jpeg" alt="Team Member">
+                    <h3>Luis</h3>
+                    <p class="member-role">Documentation Specialist</p>
+                    <p>Created instruction manuals and safety documentation. Primary painter.</p>
+                </div>
+                <div class="team-member">
+                    <img src="img/bruno.jpeg" alt="Team Member">
+                    <h3>Bruno</h3>
+                    <p class="member-role">Materials Engineer</p>
+                    <p>Sourced and prepared all recycled components. Magnet safety expert.</p>
+                </div>
+                <div class="team-member">
+                    <img src="img/anjelo.jpeg" alt="Team Member">
+                    <h3>Angelo</h3>
+                    <p class="member-role">Lead Builder</p>
+                    <p>Oversaw assembly process. Quality control for all constructions.</p>
+                </div>
+                <div class="team-member">
+                    <img src="img/jose.jpeg" alt="Team Member">
+                    <h3>Jose</h3>
+                    <p class="member-role">Educational Consultant</p>
+                    <p>Developed learning activities and age-appropriate challenges.</p>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Project Timeline</h3>
+            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-top: 1rem;">
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center;">
+                    <div>
+                        <h4 style="color: var(--primary);">Week 1</h4>
+                        <p>Concept development<br>Material research<br>Initial sketches</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary);">Week 2</h4>
+                        <p>Prototype testing<br>Safety evaluation<br>Design refinements</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary);">Week 3</h4>
+                        <p>Production assembly<br>Painting/finishing<br>Quality checks</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--primary);">Week 4</h4>
+                        <p>Documentation<br>Presentation prep<br>Final testing</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Technical Challenges Solved</h3>
+            <div style="background: #fff8e1; padding: 1.5rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid var(--secondary);">
+                <div style="margin-bottom: 1rem;">
+                    <h4 style="color: var(--secondary);"><i class="fas fa-magnet" style="margin-right: 10px;"></i> Magnet Strength Optimization</h4>
+                    <p><strong>Issue:</strong> Initial magnets either too weak (failed to connect) or too strong (difficult for small hands to separate)</p>
+                    <p><strong>Solution:</strong> Tested 8 magnet types before selecting ideal 350 Gauss strength</p>
+                </div>
+                <div>
+                    <h4 style="color: var(--secondary);"><i class="fas fa-tint" style="margin-right: 10px;"></i> Surface Durability</h4>
+                    <p><strong>Issue:</strong> Paint chipping during playtesting</p>
+                    <p><strong>Solution:</strong> Implemented 3-step finishing process (primer, paint, varnish)</p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
